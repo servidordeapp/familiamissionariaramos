@@ -127,7 +127,7 @@
     }
     .nav-inner { height: var(--nav-h); display: flex; align-items: center; gap: var(--sp-3); }
     .brand { display: flex; align-items: center; gap: 10px; text-decoration: none; color: var(--xilo); font-weight: 800; }
-    .brand .mark { width: 38px; height: 38px; flex: none; }
+    .brand .mark { width: 38px; height: 38px; flex: none; object-fit: contain; }
     .brand b { font-family: var(--font-serif); font-size: 1.02rem; line-height: 1.05; }
     .brand small { display:block; font-family: var(--font-body); font-weight: 600; font-size: .68rem; color: var(--terracota); letter-spacing: .04em; }
     .nav-links { margin-left: auto; display: flex; align-items: center; gap: 4px; }
@@ -447,11 +447,7 @@
   <header class="nav">
     <div class="wrap nav-inner">
       <a href="#topo" class="brand" aria-label="Família Missionária Ramos — início">
-        <svg class="mark" viewBox="0 0 48 48" fill="none" aria-hidden="true">
-          <circle cx="24" cy="24" r="22" fill="#E4A100"/>
-          <path d="M24 8v32M14 20h20" stroke="#8A2B0F" stroke-width="4" stroke-linecap="round"/>
-          <path d="M24 40c-7-5-11-10-11-17a11 11 0 0122 0c0 7-4 12-11 17z" fill="none" stroke="#2E1D12" stroke-width="2.2" opacity=".5"/>
-        </svg>
+        <img class="mark" src="assets/logo-FAMILIA-MISSIONARIA-preto.png" alt="Família Missionária Ramos" />
         <b>Família Ramos<small>Missão no Sertão · PI</small></b>
       </a>
 
