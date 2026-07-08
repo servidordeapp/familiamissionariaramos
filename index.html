@@ -390,6 +390,49 @@
 
     .skip { position: absolute; left: -999px; top: 8px; background: var(--terracota); color:#fff; padding: 10px 16px; border-radius: var(--r-sm); z-index: 300; }
     .skip:focus { left: 8px; }
+
+    /* ============ Galeria (masonry / polaroid) ============ */
+    .gallery-head { display: flex; align-items: baseline; gap: 12px; margin: var(--sp-6) 0 var(--sp-4); flex-wrap: wrap; }
+    .gallery-head h3 { font-family: var(--font-serif); font-size: 1.35rem; color: var(--xilo); }
+    .gallery-head span { color: var(--fg-muted); font-size: .95rem; }
+    .gallery { columns: 3 260px; column-gap: 18px; }
+    @media (max-width: 640px){ .gallery { columns: 2 140px; column-gap: 12px; } }
+    .gallery figure {
+      break-inside: avoid; margin: 0 0 18px; position: relative;
+      background: var(--creme-card); border: 6px solid var(--creme-card);
+      border-radius: var(--r-md); box-shadow: var(--shadow-sm); overflow: hidden;
+      cursor: zoom-in; transition: transform .25s ease, box-shadow .25s ease;
+    }
+    @media (max-width: 640px){ .gallery figure { margin-bottom: 12px; } }
+    .gallery figure:hover { transform: translateY(-4px); box-shadow: var(--shadow-md); }
+    .gallery figure:focus-visible { outline: 3px solid var(--ring); outline-offset: 3px; }
+    .gallery img { width: 100%; height: auto; display: block; border-radius: calc(var(--r-md) - 4px); background: var(--areia-2); }
+    .gallery figcaption {
+      position: absolute; left: 0; right: 0; bottom: 0; padding: 22px 12px 9px;
+      font-size: .82rem; font-weight: 600; color: #fff; line-height: 1.3;
+      background: linear-gradient(transparent, rgba(46,29,18,.82));
+      opacity: 0; transform: translateY(6px); transition: opacity .25s ease, transform .25s ease;
+    }
+    .gallery figure:hover figcaption, .gallery figure:focus-visible figcaption { opacity: 1; transform: none; }
+    @media (hover: none){ .gallery figcaption { opacity: 1; transform: none; } }
+
+    /* ============ Lightbox ============ */
+    .lightbox { position: fixed; inset: 0; z-index: 500; display: none; align-items: center; justify-content: center;
+      background: rgba(30,18,10,.9); padding: clamp(16px,4vw,48px); }
+    .lightbox.open { display: flex; }
+    .lightbox img { max-width: 100%; max-height: 82vh; width: auto; height: auto; border: 6px solid var(--creme-card);
+      border-radius: var(--r-md); box-shadow: var(--shadow-lg); background: var(--areia-2); }
+    .lightbox .lb-cap { position: absolute; left: 0; right: 0; bottom: max(18px, env(safe-area-inset-bottom));
+      text-align: center; color: var(--areia); font-weight: 600; padding: 0 20px; font-size: .95rem; }
+    .lb-btn { position: absolute; background: rgba(251,241,223,.14); border: 2px solid rgba(251,241,223,.35);
+      color: var(--areia); width: 52px; height: 52px; border-radius: var(--r-full); cursor: pointer;
+      display: grid; place-items: center; transition: background .2s ease; }
+    .lb-btn:hover { background: rgba(251,241,223,.28); }
+    .lb-btn svg { width: 26px; height: 26px; }
+    .lb-close { top: max(16px, env(safe-area-inset-top)); right: max(16px, env(safe-area-inset-right)); }
+    .lb-prev { left: max(10px, env(safe-area-inset-left)); top: 50%; transform: translateY(-50%); }
+    .lb-next { right: max(10px, env(safe-area-inset-right)); top: 50%; transform: translateY(-50%); }
+    @media (max-width: 640px){ .lb-prev, .lb-next { top: auto; bottom: 76px; transform: none; } }
   </style>
 </head>
 <body>
@@ -568,6 +611,41 @@
           </div>
         </div>
       </div>
+
+      <div class="gallery-head">
+        <h3>A vida da igreja</h3>
+        <span>Cultos, louvor e comunhão em Lagoa de São Francisco</span>
+      </div>
+      <div class="gallery" data-lightbox>
+        <figure class="reveal" role="button" tabindex="0" data-cap="Luan prega no culto, em cenário sertanejo">
+          <img src="assets/onde-1.jpg" width="799" height="530" loading="lazy" decoding="async" alt="Luan pregando ao púlpito durante o culto, com decoração sertaneja ao fundo" />
+          <figcaption>Luan prega no culto</figcaption>
+        </figure>
+        <figure class="reveal" role="button" tabindex="0" data-cap="Culto de domingo à noite, com a congregação reunida">
+          <img src="assets/onde-2.jpg" width="800" height="600" loading="lazy" decoding="async" alt="Congregação sentada durante o culto noturno no salão" />
+          <figcaption>Culto de domingo</figcaption>
+        </figure>
+        <figure class="reveal" role="button" tabindex="0" data-cap="Débora no ministério de louvor">
+          <img src="assets/onde-3.jpg" width="530" height="799" loading="lazy" decoding="async" alt="Débora ministrando o louvor ao púlpito, de mãos erguidas" />
+          <figcaption>Ministério de louvor</figcaption>
+        </figure>
+        <figure class="reveal" role="button" tabindex="0" data-cap="As quatro famílias missionárias que servem em Lagoa">
+          <img src="assets/onde-4.png" width="800" height="450" loading="lazy" decoding="async" alt="As famílias missionárias reunidas com suas crianças no salão da igreja" />
+          <figcaption>Famílias missionárias</figcaption>
+        </figure>
+        <figure class="reveal" role="button" tabindex="0" data-cap="Congregação reunida em adoração">
+          <img src="assets/onde-5.jpg" width="800" height="800" loading="lazy" decoding="async" alt="Congregação em pé, em adoração, no galpão da igreja" />
+          <figcaption>Reunidos em adoração</figcaption>
+        </figure>
+        <figure class="reveal" role="button" tabindex="0" data-cap="Ceia do Senhor e ensino da Palavra">
+          <img src="assets/onde-6.jpg" width="450" height="800" loading="lazy" decoding="async" alt="Luan diante da mesa da Ceia do Senhor, ensinando a Palavra" />
+          <figcaption>Ceia do Senhor</figcaption>
+        </figure>
+        <figure class="reveal" role="button" tabindex="0" data-cap="Comunhão e refeição após a Escola Bíblica">
+          <img src="assets/onde-7.jpg" width="719" height="1600" loading="lazy" decoding="async" alt="Crianças e famílias reunidas à mesa no refeitório da igreja" />
+          <figcaption>Comunhão à mesa</figcaption>
+        </figure>
+      </div>
     </div>
   </section>
 
@@ -614,6 +692,37 @@
           </div>
         </div>
       </div>
+
+      <div class="gallery-head">
+        <h3>Um projeto que transforma</h3>
+        <span>Ensino, cuidado e alimento para cerca de 300 crianças</span>
+      </div>
+      <div class="gallery" data-lightbox>
+        <figure class="reveal" role="button" tabindex="0" data-cap="Lanche das crianças no Projeto No Caminho">
+          <img src="assets/proj-1.jpg" width="602" height="800" loading="lazy" decoding="async" alt="Crianças e adolescentes reunidos às mesas para o lanche no salão" />
+          <figcaption>Hora do lanche</figcaption>
+        </figure>
+        <figure class="reveal" role="button" tabindex="0" data-cap="Sala cheia: ensino toda semana">
+          <img src="assets/proj-2.jpg" width="600" height="800" loading="lazy" decoding="async" alt="Sala de aula cheia de crianças e adolescentes durante a aula" />
+          <figcaption>Sala cheia toda semana</figcaption>
+        </figure>
+        <figure class="reveal" role="button" tabindex="0" data-cap="Cada criança acolhida com cuidado">
+          <img src="assets/proj-3.jpg" width="449" height="799" loading="lazy" decoding="async" alt="Crianças sentadas no chão ouvindo, ao lado de educadora em cadeira de rodas" />
+          <figcaption>Acolhimento e cuidado</figcaption>
+        </figure>
+        <figure class="reveal" role="button" tabindex="0" data-cap="Grande encontro no salão do Projeto">
+          <img src="assets/proj-4.jpg" width="799" height="359" loading="lazy" decoding="async" alt="Salão cheio de famílias em um grande encontro à noite" />
+          <figcaption>Grande encontro</figcaption>
+        </figure>
+        <figure class="reveal" role="button" tabindex="0" data-cap="Aula com as crianças e adolescentes">
+          <img src="assets/proj-5.jpg" width="600" height="800" loading="lazy" decoding="async" alt="Educador em pé ensinando crianças sentadas nas carteiras" />
+          <figcaption>Ensino da Palavra</figcaption>
+        </figure>
+        <figure class="reveal" role="button" tabindex="0" data-cap="Discipulado nos lares, à noite">
+          <img src="assets/proj-7.jpg" width="602" height="800" loading="lazy" decoding="async" alt="Família reunida ao redor da mesa em estudo bíblico noturno numa casa de tijolos" />
+          <figcaption>Discipulado nos lares</figcaption>
+        </figure>
+      </div>
     </div>
   </section>
 
@@ -632,6 +741,37 @@
           <h3>Um terreno doado, uma bênção do Senhor</h3>
           <p>A igreja ganhou um terreno de bom tamanho — doado por uma senhora não cristã da comunidade — para a construção do templo, que será usado para os cultos, atividades com as crianças e estudos bíblicos.</p>
         </div>
+      </div>
+
+      <div class="gallery-head">
+        <h3>Boas Novas em Cabreiro</h3>
+        <span>Clube bíblico e visitas nos lares do povoado</span>
+      </div>
+      <div class="gallery" data-lightbox>
+        <figure class="reveal" role="button" tabindex="0" data-cap="Festa e bolo com a criançada de Cabreiro">
+          <img src="assets/cab-1.jpg" width="800" height="602" loading="lazy" decoding="async" alt="Grande grupo de crianças reunidas ao ar livre em torno de um bolo" />
+          <figcaption>Festa com a criançada</figcaption>
+        </figure>
+        <figure class="reveal" role="button" tabindex="0" data-cap="Clube bíblico à sombra da árvore">
+          <img src="assets/cab-2.jpg" width="600" height="800" loading="lazy" decoding="async" alt="Crianças sentadas no chão ouvindo a história bíblica debaixo de uma grande árvore" />
+          <figcaption>Clube bíblico</figcaption>
+        </figure>
+        <figure class="reveal" role="button" tabindex="0" data-cap="Roda de ensino ao ar livre">
+          <img src="assets/cab-3.jpg" width="602" height="800" loading="lazy" decoding="async" alt="Roda de crianças e famílias em cadeiras ao ar livre, com Luan ensinando ao centro" />
+          <figcaption>Roda de ensino</figcaption>
+        </figure>
+        <figure class="reveal" role="button" tabindex="0" data-cap="Crianças desenhando no clube bíblico">
+          <img src="assets/cab-5.jpg" width="601" height="799" loading="lazy" decoding="async" alt="Crianças desenhando e pintando à mesa com lápis coloridos" />
+          <figcaption>Desenhando e aprendendo</figcaption>
+        </figure>
+        <figure class="reveal" role="button" tabindex="0" data-cap="Débora com as crianças de Cabreiro">
+          <img src="assets/cab-6.jpg" width="800" height="450" loading="lazy" decoding="async" alt="Débora sorrindo em selfie com crianças sentadas em banquinhos ao ar livre" />
+          <figcaption>Débora e as crianças</figcaption>
+        </figure>
+        <figure class="reveal" role="button" tabindex="0" data-cap="O caminho até o povoado, no sertão">
+          <img src="assets/cab-4.jpg" width="1360" height="1600" loading="lazy" decoding="async" alt="Estrada rural cercada de árvores e vegetação verde sob céu enevoado" />
+          <figcaption>O caminho até o povoado</figcaption>
+        </figure>
       </div>
     </div>
   </section>
@@ -846,6 +986,21 @@
     <span id="toastMsg">Copiado!</span>
   </div>
 
+  <!-- Lightbox -->
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Visualização de foto ampliada">
+    <button class="lb-btn lb-close" id="lbClose" aria-label="Fechar (Esc)">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
+    </button>
+    <button class="lb-btn lb-prev" id="lbPrev" aria-label="Foto anterior">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+    </button>
+    <button class="lb-btn lb-next" id="lbNext" aria-label="Próxima foto">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+    </button>
+    <img id="lbImg" src="" alt="" />
+    <div class="lb-cap" id="lbCap"></div>
+  </div>
+
   <script>
     // Ano
     document.getElementById('ano').textContent = new Date().getFullYear();
@@ -889,6 +1044,66 @@
         setTimeout(() => btn.classList.remove('copied'), 1600);
       });
     });
+
+    // Lightbox
+    (function(){
+      const lb = document.getElementById('lightbox');
+      const lbImg = document.getElementById('lbImg');
+      const lbCap = document.getElementById('lbCap');
+      const btnClose = document.getElementById('lbClose');
+      const btnPrev = document.getElementById('lbPrev');
+      const btnNext = document.getElementById('lbNext');
+      let group = [];      // array of figures in the active gallery
+      let idx = 0;
+      let lastFocus = null;
+
+      function show(i) {
+        idx = (i + group.length) % group.length;
+        const fig = group[idx];
+        const img = fig.querySelector('img');
+        lbImg.src = img.currentSrc || img.src;
+        lbImg.alt = img.alt;
+        lbCap.textContent = fig.dataset.cap || '';
+      }
+      function open(fig) {
+        group = Array.from(fig.closest('.gallery').querySelectorAll('figure'));
+        lastFocus = fig;
+        show(group.indexOf(fig));
+        lb.classList.add('open');
+        document.body.style.overflow = 'hidden';
+        btnClose.focus();
+      }
+      function close() {
+        lb.classList.remove('open');
+        document.body.style.overflow = '';
+        lbImg.src = '';
+        if (lastFocus) lastFocus.focus();
+      }
+
+      document.querySelectorAll('.gallery[data-lightbox] figure').forEach(fig => {
+        fig.addEventListener('click', () => open(fig));
+        fig.addEventListener('keydown', e => {
+          if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(fig); }
+        });
+      });
+      btnClose.addEventListener('click', close);
+      btnPrev.addEventListener('click', () => show(idx - 1));
+      btnNext.addEventListener('click', () => show(idx + 1));
+      lb.addEventListener('click', e => { if (e.target === lb) close(); });
+      document.addEventListener('keydown', e => {
+        if (!lb.classList.contains('open')) return;
+        if (e.key === 'Escape') close();
+        else if (e.key === 'ArrowLeft') show(idx - 1);
+        else if (e.key === 'ArrowRight') show(idx + 1);
+      });
+      // Swipe (mobile)
+      let sx = 0;
+      lb.addEventListener('touchstart', e => { sx = e.touches[0].clientX; }, {passive:true});
+      lb.addEventListener('touchend', e => {
+        const dx = e.changedTouches[0].clientX - sx;
+        if (Math.abs(dx) > 50) show(idx + (dx < 0 ? 1 : -1));
+      }, {passive:true});
+    })();
 
     // Reveal on scroll
     const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
